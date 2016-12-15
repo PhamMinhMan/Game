@@ -1,0 +1,21 @@
+﻿  Simon.cpp
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+c:\users\minh man\desktop\game\game\simon.cpp(31): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\minh man\desktop\game\game\simon.cpp(40): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\minh man\desktop\game\game\simon.cpp(52): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\minh man\desktop\game\game\simon.cpp(91): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\minh man\desktop\game\game\simon.cpp(92): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\minh man\desktop\game\game\simon.cpp(107): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\minh man\desktop\game\game\simon.cpp(146): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\minh man\desktop\game\game\simon.cpp(153): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\minh man\desktop\game\game\simon.cpp(159): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\minh man\desktop\game\game\simon.cpp(160): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\minh man\desktop\game\game\simon.cpp(175): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\minh man\desktop\game\game\simon.cpp(262): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\minh man\desktop\game\game\simon.cpp(271): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\minh man\desktop\game\game\simon.cpp(291): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\minh man\desktop\game\game\simon.cpp(303): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\minh man\desktop\game\game\simon.cpp(304): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\minh man\desktop\game\game\simon.cpp(317): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Game.vcxproj -> C:\Users\Minh Man\Desktop\Game\Debug\Game.exe
+  Game.vcxproj -> C:\Users\Minh Man\Desktop\Game\Debug\Game.pdb (Full PDB)
