@@ -16,9 +16,9 @@ RectF SweptAABB::getSweptBroadphase(GObject* M)
 {
 	float x, y, w, h;
 	x = M->dx > 0 ? M->x : M->x + M->dx;
-	y = M->dy > 0 ? M->y : M->y + M->dy;
-	w = M->dx > 0 ? M->width + M->dx : M->width - M->dx;
-	h = M->dy > 0 ? M->height + M->dy : M->height - M->dy;
+	y = M->dy < 0 ? M->y : M->y + M->dy;
+	w = abs(M->dx) + M->width;
+	h = abs( M->dy) + M->height;
 	RectF broadphasebox;
 	broadphasebox.init(x, y, w, h);
 	return broadphasebox;
@@ -26,7 +26,7 @@ RectF SweptAABB::getSweptBroadphase(GObject* M)
 
 bool SweptAABB::AABBCheck(RectF * M, RectF * S)
 {
-	return (M->bottom() > S->top() && M->top() < S->bottom() 
+	return (M->bottom() < S->top() && M->top() > S->bottom()
 		&& M->left() < S->right() && M->right() > S->left());
 }
 
@@ -126,6 +126,10 @@ void SweptAABB::checkCollision(GObject * M, GObject * S)
 	if (!M->alive || !S->alive)
 		return;
 
+	//tru de su dung thuat toan AABB
+	//M->y = -M->y;
+	//M->dy = -M->dy;
+
 	//tinh broadphasebox
 	RectF movBroadPhase = getSweptBroadphase(M);
 	//kiem tra broadphase box co giao nhau voi S hay khong
@@ -133,10 +137,14 @@ void SweptAABB::checkCollision(GObject * M, GObject * S)
 	{
 		if (AABBCheck(S, M))
 		{
+			//khoi phuc lai toa do ban dau
 			M->onInterserct(S);
 			S->onInterserct(M);
 			return;
 		}
+		M->y = -M->y;
+		S->y = -S->y;
+		M->dy = -M->dy;
 		//neu co thi co the xay ra va cham
 		int nx, ny;
 		//tinh sweptTime
@@ -144,35 +152,49 @@ void SweptAABB::checkCollision(GObject * M, GObject * S)
 		if (sweptTime < 1.0)
 		{
 			//chac chan co va cham
+			
+			//khoi phuc lai toa do ban dau
+
+			M->y = -M->y;
+			S->y = -S->y;
+			M->dy = -M->dy;
+
 			M->onCollision(S, nx, ny);
 			S->onCollision(M, nx, ny);
+
+			return;
 		}
+
+		M->y = -M->y;
+		S->y = -S->y;
+		M->dy = -M->dy;
 	}
 }
 
 void SweptAABB::preventMove(GObject * M, GObject * S)
 {
-	if (M->top() < S->bottom() && M->bottom() > S->top() && M->dx != 0)
+	if (M->top() > S->bottom() && M->bottom() < S->top() && M->dx != 0)
 	{
 		if (M->dx > 0)
 			M->dx = S->left() - M->right();
 		else
 			M->dx = S->right() - M->left();
 		M->biDoiVanToc = true;
+
 		return;
 	}
 
 	if (M->left() < S->right() && M->right() > S->left() && M->dy != 0)
 	{
 		if (M->dy > 0)
-			M->dy = S->top() - M->bottom();
-		else
 			M->dy = S->bottom() - M->top();
+		else
+			M->dy = S->top() - M->bottom();
 		M->biDoiVanToc = true;
+
 		return;
 	}
 
 	M->coVaChamCheo = true;
-
 }
 

@@ -14,7 +14,14 @@ public:
 	bool update();
 	bool draw();
 
+	int lifeCount;
+
+	void setLife(int newLifeCount);
+
 	bool onGround;
+
+	void setAction(int action);
+
 
 #pragma region Stair
 

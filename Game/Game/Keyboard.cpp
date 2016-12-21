@@ -68,8 +68,8 @@ void Keyboard::updateKeyboard()
 	keyAttack = isKeyDown(DIK_Z);
 	keyChangeStage = isKeyDown(DIK_S);
 
-	/*keyJump = keyJump && !isKeyJumpDownPrevious;
-	isKeyJumpDownPrevious = keyJump;*/
+	keyJumpPress = keyJump && !isKeyJumpDownPrevious;
+	isKeyJumpDownPrevious = keyJump;
 
 	keyAttackPress = keyAttack && !isKeyAttackDownPrevious;
 	isKeyAttackDownPrevious = keyAttack;

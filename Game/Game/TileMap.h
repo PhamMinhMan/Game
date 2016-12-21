@@ -10,6 +10,9 @@ public:
 	int** matrix;
 	int nRow;
 	int nCol;
+
+	int heightMap;
+
 	TileMap(const char* matrixPath,const char* tileSheetPath);
 
 

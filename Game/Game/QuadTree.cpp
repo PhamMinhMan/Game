@@ -1,9 +1,9 @@
 #include "QuadTree.h"
 
-void QuadTree::init(const char * quadtreePath, List<GObject*>* allObject)
+void QuadTree::init(const char * quadtreePath, List<GObject*>* allObject, int mapHeight)
 {
 	fstream fs(quadtreePath);
-	rootNode = new QuadTreeNode(fs, allObject);
+	rootNode = new QuadTreeNode(fs, allObject,mapHeight);
 }
 
 void QuadTree::update()

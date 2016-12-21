@@ -25,18 +25,19 @@ void QuadTreeNode::findObjectToFillToCamera()
 	}
 }
 
-QuadTreeNode::QuadTreeNode(fstream & fs, List<GObject*>* allObject)
+QuadTreeNode::QuadTreeNode(fstream & fs, List<GObject*>* allObject, int mapHeight)
 {
 	fs >> id >> x >> y >> width >> height;
+	y = mapHeight - y;
 	int nNode, nObject;
 	int indexInObjects;
 	fs >> nNode >> nObject;
 	if (nNode==4)
 	{
-		tl = new QuadTreeNode(fs, allObject);
-		tr = new QuadTreeNode(fs, allObject);
-		bl = new QuadTreeNode(fs, allObject);
-		br = new QuadTreeNode(fs, allObject);
+		tl = new QuadTreeNode(fs, allObject,mapHeight);
+		tr = new QuadTreeNode(fs, allObject,mapHeight);
+		bl = new QuadTreeNode(fs, allObject,mapHeight);
+		br = new QuadTreeNode(fs, allObject,mapHeight);
 	}
 	else 
 	{

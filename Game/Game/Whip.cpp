@@ -25,11 +25,11 @@ bool Whip::draw()
 	curFrame = Simon::getInstance()->curFrame;
 	Point curPoint = getCurPoint();
 	x = Simon::getInstance()->x + curPoint.X;
-	y = Simon::getInstance()->y + curPoint.Y;
+	y = Simon::getInstance()->y - curPoint.Y;
 	if (curFrame == 2)
 	{
 		x -= width;
-		y -= height;
+		y += height;
 	}
 
 	 MovableObject::draw();

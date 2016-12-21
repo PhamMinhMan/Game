@@ -12,7 +12,7 @@ public:
 	List<GObject*> objects;
 	int id;
 	void findObjectToFillToCamera();
-	QuadTreeNode(fstream& fs, List<GObject*>* allObject);
+	QuadTreeNode(fstream& fs, List<GObject*>* allObject, int mapHeight);
 	~QuadTreeNode();
 };
 

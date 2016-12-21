@@ -9,6 +9,9 @@ public:
 	static Camera* getInstance();
 	void update();
 	ObjectsFilter objects;
+
+	void convertToRenderPos(float x, float y, float& renderX, float& renderY);
+
 	void remove();
 	Camera();
 	~Camera();

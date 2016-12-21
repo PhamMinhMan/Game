@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ActiveVampireBat.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BigFire.h" />
     <ClInclude Include="Camera.h" />
@@ -181,10 +182,12 @@
     <ClInclude Include="SweptAABB.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="Vampire_Bat.h" />
     <ClInclude Include="Whip.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActiveVampireBat.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BigFire.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -215,6 +218,7 @@
     <ClCompile Include="SweptAABB.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="Vampire_Bat.cpp" />
     <ClCompile Include="Whip.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>

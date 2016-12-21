@@ -25,7 +25,6 @@ void Game::init()
 }
 void Game::update()
 {
-	Zombie::getInstance()->update();
 
 	map->update();
 
@@ -35,7 +34,6 @@ void Game::update()
 	//	SWEPT_AABB->checkCollision(SIMON, obj);
 	//}
 
-	Zombie::getInstance()->updateLocation();
 }
 
 void Game::draw()

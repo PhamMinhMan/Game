@@ -75,7 +75,9 @@ void Door::onInterserct(GObject * other)
 		if(curDoor==0)
 			Stage::curStage = Stage::curListStage->at(Stage::curStage->index + 1);
 		curDoor = this;
-
+		SIMON->y = bottom() + SIMON->height;
+		SIMON->vy = 0;
+		SIMON->dy = 0;
 	}
 }
 

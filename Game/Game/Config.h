@@ -2,7 +2,7 @@
 #define SCREEN_WIDTH 500
 #define SCREEN_HEIGHT 500
 
-#define BACK_WIDTH 225
+#define BACK_WIDTH 325
 #define BACK_HEIGHT 184
 
 #define GAME Game::getInstance()
@@ -13,7 +13,7 @@
 #define TIME GameTime::getInstance()->deltaTime
 #define KEYBOARD Keyboard::getInstance()
 
-#define GRAVITY 0.0004
+#define GRAVITY -0.0004
 
 enum COLLISION_FILTER
 {
@@ -26,7 +26,8 @@ enum COLLISION_FILTER
 	CF_CandleLarge,
 	CF_CandleSmall,
 	CF_Panther,
-	CF_ChangeStage
+	CF_ChangeStage,
+	CF_ActiveVampireBat
 };
 enum ANIMATION_SIMON {
 	AS_DI,

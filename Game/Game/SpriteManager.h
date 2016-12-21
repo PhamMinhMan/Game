@@ -3,6 +3,7 @@
 //add
 enum SPRITE_MANAGER
 {
+	SPR_ActiveVampireBat = -8,
 	SPR_ChangeStage =-6,
 	SPR_Gate1 = -5,
 	SPR_Fake,

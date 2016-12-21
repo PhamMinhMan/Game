@@ -14,6 +14,7 @@ public:
 	List<GObject*> candleObjects;
 	List<GObject*> stairObjects;
 	List<GObject*> changeStageObjects;
+	List<GObject*> activeVampireBatObjects;
 	
 
 	void addObject(GObject* obj);

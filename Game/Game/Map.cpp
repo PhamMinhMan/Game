@@ -7,6 +7,8 @@
 #include "CandleSmall.h"
 #include "Panther.h"
 #include"ChangeStage.h"
+#include"Vampire_Bat.h"
+#include "ActiveVampireBat.h"
 
 void Map::initStages(const char * stagePath)
 {
@@ -22,15 +24,22 @@ void Map::initStages(const char * stagePath)
 		fs >> stage->width;
 		fs >> stage->height;
 
+		stage->y = heightMap - stage->y;
+
 		fs >> stage->xCameraFromPreviousStage;
 		fs >> stage->yCameraFromPreviousStage;
 		fs >> stage->xCameraFromNextStage;
 		fs >> stage->yCameraFromNextStage;
 
+		stage->yCameraFromPreviousStage = heightMap - stage->yCameraFromPreviousStage;
+
+
 		fs >> stage->xSimonFromPreviousStage;
 		fs >> stage->ySimonFromPreviousStage;
 		fs >> stage->xSimonFromNextStage;
 		fs >> stage->ySimonFromNextStage;
+
+		stage->ySimonFromPreviousStage = heightMap - stage->ySimonFromPreviousStage;
 
 		stage->index = i;
 
@@ -43,11 +52,11 @@ void Map::initStages(const char * stagePath)
 	stages[0]->setLocationFromPreviousStage();
 }
 
-Map::Map(const char* matrixPath, const char* tileSheetPath, 
-	const char* objectsPath, const char* quadtreePath, const char* stagePath):
-	TileMap(matrixPath,tileSheetPath)
+Map::Map(const char* matrixPath, const char* tileSheetPath,
+	const char* objectsPath, const char* quadtreePath, const char* stagePath) :
+	TileMap(matrixPath, tileSheetPath)
 {
-	int nObject, id, x, y, width, height;;
+	int nObject, id, x, y, width, height;
 	fstream fs(objectsPath);
 
 	fs >> nObject;
@@ -57,7 +66,11 @@ Map::Map(const char* matrixPath, const char* tileSheetPath,
 	for (int i = 0; i < nObject; i++)
 	{
 		fs >> id >> x >> y >> width >> height;
-		switch (id%100)
+
+		//convert yinfile to ygame
+		y = heightMap - y;
+
+		switch (id % 100)
 		{
 		case SPR_Zombie:
 			obj = new Zombie();
@@ -83,11 +96,18 @@ Map::Map(const char* matrixPath, const char* tileSheetPath,
 		case SPR_ChangeStage:
 			obj = new ChangeStage();
 			break;
+		case SPR_Vampire_Bat:
+			obj = new Vampire_Bat();
+			Vampire_Bat::instance = (Vampire_Bat*)obj;
+			break;
+		case SPR_ActiveVampireBat:
+			obj = new ActiveVampireBat();
+			break;
 		default:
 			obj = new GObject();
 			break;
 		}
-		
+
 		if (id == -101)
 		{
 			x += 8;
@@ -95,8 +115,8 @@ Map::Map(const char* matrixPath, const char* tileSheetPath,
 
 		obj->id = id;
 		//add
-		if(id >= 0|| id ==-3 ||id==-4)
-			obj->sprite = &SpriteManager::getInstance()->sprites[id%100];
+		if (id >= 0 || id == -3 || id == -4)
+			obj->sprite = &SpriteManager::getInstance()->sprites[id % 100];
 		obj->x = x;
 		obj->y = y;
 		obj->width = width;
@@ -108,7 +128,7 @@ Map::Map(const char* matrixPath, const char* tileSheetPath,
 	}
 
 	quadtree = new QuadTree();
-	quadtree->init(quadtreePath, &objects);
+	quadtree->init(quadtreePath, &objects,heightMap);
 
 	initStages(stagePath);
 }
@@ -128,12 +148,17 @@ void Map::update()
 	SIMON->update();
 
 	//for each (auto obj in CAMERA->objects.allObjects)
-	for (int i=0;i<CAMERA->objects.allObjects.size();i++)
+	for (int i = 0; i < CAMERA->objects.allObjects.size(); i++)
 	{
 		CAMERA->objects.allObjects[i]->update();
 	}
 
 	for each (auto stair in CAMERA->objects.stairObjects)
+	{
+		SWEPT_AABB->checkCollision(SIMON, stair);
+	}
+
+	for each (auto stair in CAMERA->objects.activeVampireBatObjects)
 	{
 		SWEPT_AABB->checkCollision(SIMON, stair);
 	}

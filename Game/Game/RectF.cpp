@@ -27,7 +27,7 @@ int RectF::top()
 
 int RectF::bottom()
 {
-	return y+height;
+	return y-height;
 }
 
 float RectF::xCenter()
@@ -37,7 +37,7 @@ float RectF::xCenter()
 
 float RectF::yCenter()
 {
-	return y + height / 2;
+	return y - height / 2;
 }
 
 RECT RectF::toRECT()// tra ra 1 kieu RECT cua window tu bien RectF

@@ -15,7 +15,7 @@ void Stair::onInterserct(GObject * other)
 	if (id == ST_RightUp && other == SIMON && Keyboard::getInstance()->keyUp && !SIMON->onStair)
 	{
 		int xDestination = xCenter() - SIMON->width;
-		int yDestination = bottom() - SIMON->height;
+		int yDestination = bottom() + SIMON->height;
 		SIMON->onStair = true;
 		SIMON->initGoStair(xDestination, yDestination, xDestination - SIMON->x, this);
 		SIMON->stairDirection = Right;
@@ -26,7 +26,7 @@ void Stair::onInterserct(GObject * other)
 	if (id == ST_LeftUp && other == SIMON && Keyboard::getInstance()->keyUp && !SIMON->onStair)
 	{
 		int xDestination = xCenter();
-		int yDestination = bottom() - SIMON->height;
+		int yDestination = bottom() + SIMON->height;
 		SIMON->onStair = true;
 		SIMON->initGoStair(xDestination, yDestination, xDestination - SIMON->x, this);
 		SIMON->stairDirection = Left;

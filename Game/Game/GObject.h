@@ -31,7 +31,7 @@ public:
 
 	void updateAnimation();
 
-	void setAction(int action);
+	virtual void setAction(int action);
 
 	virtual void onEndAnimation();
 
@@ -40,7 +40,6 @@ public:
 	RectF oldRect;
 	virtual void setOldRect();
 	void restore();// khoi phuc vi tri ban dau
-	void setAnimation(int animation);
 	GObject();
 	~GObject();
 };

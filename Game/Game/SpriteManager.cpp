@@ -21,6 +21,7 @@ SpriteManager::SpriteManager()
 	sprites[SPR_CandleSmall].init("Data\\Objects_effects.png", "Data\\Candle_Small.ani");
 	sprites[SPR_Door].init("Data\\Door.png","Data\\Door.ani");
 	sprites[SPR_WHIP].init("Data\\whip2.png", "Data\\whip1.ani");
+	sprites[SPR_Vampire_Bat].init("Data\\Bosses.png", "Data\\Vampire_Bat.ani");
 
 }
 

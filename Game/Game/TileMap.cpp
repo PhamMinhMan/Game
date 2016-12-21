@@ -9,6 +9,7 @@ TileMap::TileMap(const char* matrixPath, const char* tileSheetPath)
 	fs >> nRow;
 	nCol = nRow;
 
+	heightMap = 16 * nRow;
 
 	matrix = new int*[nRow];
 	//khoi tao gia tri ban dau cho matrix
@@ -32,7 +33,7 @@ void TileMap::drawTile(int rowIndex, int colIndex, RectF * camera)
 	int xTileInScreen, yTileInScreen;
 
 	xTileInScreen = colIndex * 16 - camera->x;
-	yTileInScreen = rowIndex * 16 - camera->y;
+	yTileInScreen = rowIndex * 16 - (heightMap - camera->top());
 
 	RECT rectIndex;
 
@@ -47,7 +48,6 @@ void TileMap::drawTiles(int rowBegin, int rowEnd, int colBegin, int colEnd, Rect
 
 	if (colBegin<0 || colEnd> nCol - 1 || colBegin>colEnd || rowBegin<0 || rowEnd> nRow - 1 || rowBegin>rowEnd)
 		return;
-
 
 	for (int rowIndex = rowBegin; rowIndex <= rowEnd; rowIndex++)
 	{
@@ -65,8 +65,8 @@ void TileMap::draw(RectF * camera)
 	cBegin = camera->left() / 16;
 	cEnd = camera->right() / 16;
 
-	rBegin = camera->top() / 16;
-	rEnd = camera->bottom() / 16;
+	rBegin = (heightMap - camera->top()) / 16;
+	rEnd = (heightMap - camera->bottom()) / 16;
 
 	drawTiles(rBegin, rEnd, cBegin, cEnd, camera);
 }

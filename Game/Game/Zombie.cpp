@@ -1,15 +1,6 @@
 #include "Zombie.h"
 
 
-Zombie * Zombie::instance = 0;
-Zombie * Zombie::getInstance()
-{
-	if (instance ==0)
-	{
-		instance = new Zombie();
-	}
-	return instance;
-}
 
 bool Zombie::update()
 {

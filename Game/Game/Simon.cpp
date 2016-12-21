@@ -26,16 +26,16 @@ bool Simon::update()
 
 	if (!onAttack)
 	{
-		if (KEYBOARD->keyLeft)
+		if (KEYBOARD->keyLeft && onGround)
 		{
 			vx = -0.1;
-			curAnimation = AS_DI;
+			setAction( AS_DI);
 			direction = Left;
 		}
 		else
-			if (KEYBOARD->keyRight)
+			if (KEYBOARD->keyRight && onGround)
 			{
-				curAnimation = AS_DI;
+				setAction(AS_DI);
 				direction = Right;
 				vx = 0.1;
 			}
@@ -43,18 +43,18 @@ bool Simon::update()
 			{
 				if(onGround)
 					vx = 0;
-				curAnimation = AS_DUNG;
+				setAction(AS_DUNG);
 				curFrame = 0;
 			}
 
-		if (KEYBOARD->keyJump)
-		{
-			vy = -0.05;
-			curAnimation = AS_NHAY;
-			curFrame = 0;
-		}
-		else
-		{
+		//if (KEYBOARD->keyJump)
+		//{
+		//	vy = 0.05;
+		//	curAnimation = AS_NHAY;
+		//	curFrame = 0;
+		//}
+		//else
+		//{
 			//vy = 0;
 			if (KEYBOARD->keyDown)
 			{
@@ -66,7 +66,7 @@ bool Simon::update()
 			//{
 			//	dy = 0;
 			//}
-		}
+		//}
 
 
 	}
@@ -87,9 +87,13 @@ bool Simon::draw()
 
 	int frameWidth = sprite->animations[curAnimation].rects[curFrame].right - sprite->animations[curAnimation].rects[curFrame].left;
 
+	float xView;
+	float yView;
 
-	int xView = x - Camera::getInstance()->x - (frameWidth - width) / 2;
-	int yView = y - Camera::getInstance()->y;
+	CAMERA->convertToRenderPos(x, y, xView, yView);
+
+
+	xView = xView - (frameWidth - width) / 2;
 
 	int truc = xView + (frameWidth) / 2;
 
@@ -120,8 +124,20 @@ bool Simon::draw()
 		D3DXMatrixIdentity(&mat);
 		Graphics::getInstance()->GetSprite()->SetTransform(&mat);
 	}
-
 	return true;
+}
+
+void Simon::setLife(int newLifeCount)
+{
+	lifeCount = newLifeCount;
+}
+
+void Simon::setAction(int action)
+{
+	if ((!onGround || vy>0)&& (action == AS_DI || action == AS_DUNG))
+		return;
+
+	GObject::setAction(action);
 }
 
 
@@ -259,8 +275,8 @@ void Simon::goUp(Stair * stair)
 {
 	if (onGoing)
 		return;
-	initGoStair(x + stairDirection* 8, y - 8, 8, stair);
-	setAnimation(AS_LEN);
+	initGoStair(x + stairDirection* 8, y + 8, 8, stair);
+	setAction(AS_LEN);
 	direction = stairDirection;
 }
 
@@ -268,8 +284,8 @@ void Simon::goDown(Stair * stair)
 {
 	if (onGoing)
 		return;
-	initGoStair(x - stairDirection* 8, y + 8, 8, stair);
-	setAnimation(AS_XUONG);
+	initGoStair(x - stairDirection* 8, y - 8, 8, stair);
+	setAction(AS_XUONG);
 	direction = (DIRECTION)(-stairDirection);
 
 }
@@ -284,13 +300,12 @@ void Simon::onCollision(GObject * other, int nx, int ny)
 	if (other->objectFilter == CF_Ground && ny == -1)
 		onGround = true;
 
-	if (other->objectFilter == CF_Ground &&ny == -1)
+	if (other->objectFilter == CF_Ground && ny == -1)
 	{
 		if (Keyboard::getInstance()->keyJumpPress)
 		{
-			vy = -0.3;
-			setAnimation(AS_NHAY);
-
+			vy = 0.2;
+			setAction(AS_NHAY);
 		}
 	}
 	
@@ -301,7 +316,7 @@ void Simon::onCollision(GObject * other, int nx, int ny)
 		if (Keyboard::getInstance()->keyDown && !onStair)
 		{
 			int xDestination = other->right() + 8 - width;
-			int yDestination = other->top() - height;
+			int yDestination = other->top() + height;
 			onStair = true;
 			stairDirection = Right;
 			initGoStair(xDestination, yDestination, xDestination - x, (Stair*)other);
@@ -314,7 +329,7 @@ void Simon::onCollision(GObject * other, int nx, int ny)
 		if (Keyboard::getInstance()->keyDown && !onStair)
 		{
 			int xDestination = other->left() -8;
-			int yDestination = other->top() - height;
+			int yDestination = other->top() + height;
 			onStair = true;
 			stairDirection = Left;
 			initGoStair(xDestination, yDestination, xDestination - x, (Stair*)other);

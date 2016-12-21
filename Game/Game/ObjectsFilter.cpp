@@ -32,6 +32,9 @@ void ObjectsFilter::addObject(GObject * obj)
 	case CF_ChangeStage:
 		changeStageObjects._Add(obj);
 		break;
+	case CF_ActiveVampireBat:
+		activeVampireBatObjects._Add(obj);
+		break;
 	default:
 		break;
 	}
@@ -65,6 +68,9 @@ void ObjectsFilter::removeObject(GObject * obj)
 		break;
 	case CF_ChangeStage:
 		changeStageObjects._Remove(obj);
+		break;
+	case CF_ActiveVampireBat:
+		activeVampireBatObjects._Remove(obj);
 		break;
 	default:
 		break;

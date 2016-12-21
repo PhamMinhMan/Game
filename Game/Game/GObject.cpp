@@ -17,8 +17,10 @@ bool GObject::draw()
 	if (sprite == 0)
 		return false;
 
-	int xView = x - CAMERA->x;
-	int yView = y - CAMERA->y;
+	float xView ;
+	float yView ;
+
+	CAMERA->convertToRenderPos(x, y, xView, yView);
 
 	int truc = xView +
 		(sprite->animations[curAnimation].rects[curFrame].right - sprite->animations[curAnimation].rects[curFrame].left) / 2;
@@ -123,14 +125,6 @@ GObject::GObject()
 	pauseAnimation = false;
 }
 
-void GObject::setAnimation(int animation)
-{
-	if (curAnimation != animation)
-	{
-		curFrame = 0;
-		curAnimation = animation;
-	}
-}
 
 GObject::~GObject()
 {
